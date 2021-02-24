@@ -1,10 +1,13 @@
 
 const unknownCommand = require("./commands/unknowncommand.js");
+const purge = require("./commands/moderator/purge.js");
+
+
 const Discord = require('discord.js');
 
 const commands = {
     unknownCommand,
-    
+    purge,    
 }
 module.exports = async function (msg) {
     console.log(msg.content);
@@ -17,7 +20,6 @@ module.exports = async function (msg) {
                 console.log("TRUE");
                 commands[command](msg, tokens);
             } else {
-
                 commands["unknownCommand"](msg, tokens, Discord);
             }
             
