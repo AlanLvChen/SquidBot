@@ -1,9 +1,9 @@
-const { Message } = require("discord.js")
 
+//TODO change to sending a private DM to user
 module.exports = async function (msg, args) {
 
-    if(!args[0]) return msg.channel.reply("Please enter amount to clear.");
-    if(isNaN(args[0])) return msg.channel.reply("Please enter a real number.");
+    if(!args[0]) return msg.reply("Please enter amount to clear.");
+    if(isNaN(args[0])) return msg.reply("Please enter a real number.");
     if(args[0] > 100) return msg.reply("You can not delete more than 100 messages.");
     if(args[0] < 1) return msg.reply("You must delete at least one message.");
 

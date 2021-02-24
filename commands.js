@@ -5,20 +5,44 @@ const purge = require("./commands/moderator/purge.js");
 
 const Discord = require('discord.js');
 
+//general commands
 const commands = {
     unknownCommand,
-    purge,    
 }
+
+//commands for mods
+const modCommands = {
+    purge,
+}
+
+//Used for testing command
+uglyRegex = /[\[\]\.,-\/#!$%\^&\*;:{}=\-_`~()]/
+admin = '806731817474326578'
+mod = '806731247820079114'
+
 module.exports = async function (msg) {
     console.log(msg.content);
+    //Currently only works in bot-testing channel
     if (msg.channel.id == "812777913791414282") {
         let tokens = msg.content.split(" ");
         let command = tokens.shift();
-        if (command.charAt(0) == "!") {
+
+        //if message starts with ! and after that isnt !!
+        if (command.charAt(0) == "!" && !(command.length == 1 || command.charAt(1).match(uglyRegex))) {
             command = command.substring(1);
+            console.log(command);
+
+            //if general command
             if (command in commands) {
-                console.log("TRUE");
+                console.log("General command was called");
                 commands[command](msg, tokens);
+            
+            //if mod command 
+            } else if (command in modCommands && (msg.member.roles.cache.has(admin) || msg.member.roles.cache.has(mod))) {
+                console.log("Mod command was called");
+                modCommands[command](msg, tokens);
+            
+            //else not a command
             } else {
                 commands["unknownCommand"](msg, tokens, Discord);
             }
