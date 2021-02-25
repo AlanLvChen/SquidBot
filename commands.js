@@ -33,6 +33,9 @@ mod = '806731247820079114'
 
 module.exports = async function (msg) {
 
+    const d = new Date();
+    date = d.getHours() + ":" + d.getMinutes() + ", " + d.toDateString();
+
     let tokens = msg.content.split(" ");
     let command = tokens.shift();
 
@@ -42,13 +45,13 @@ module.exports = async function (msg) {
 
         //Mod commands work on every channel
         if (command in modCommands && (msg.member.roles.cache.has(admin) || msg.member.roles.cache.has(mod))) {
-            console.log("Mod command was called");
+            console.log(`Mod command **${command}** was called by **${msg.member.user.tag}** at **${date}**`);
             modCommands[command](msg, tokens, command, Discord);
         }
         else if (msg.channel.id == "806732589204635678") {
             //if general command
             if (command in commands) {
-                console.log("General command was called");
+                console.log(`General command **${command}** was called by **${msg.member.user.tag}** at **${date}**`);
                 commands[command](msg, tokens, command, Discord);
             } else {
                 commands["unknownCommand"](msg, Discord);
