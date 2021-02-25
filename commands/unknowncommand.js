@@ -23,7 +23,7 @@ module.exports = async function (msg, args, Discord) {
                         .setDescription('\u200B')
                         .addFields(
                             { name: 'General commands', value:'`!define [term]` \n `!urban [term]` \n `!flipcoin`', inline:true},
-                            { name: 'Music commands', value: '`!play [song name]` \n `!pause` \n `!skip` \n `!next` \n `!queue`', inline: true},
+                            { name: 'Music commands', value: '`!play [song name]` \n `!pause` \n `!skip` \n `!stop` \n `!queue`', inline: true},
                             { name: '\u200B', value: '\u200B' },
                             { name: 'League commands', value: '`!match [name]` \n `!pickFive [name] [name]...` \n `!inting [name]`' , inline: true },
                             { name: 'D&D commands', value: '`!roll [ _d_ ]` \n `!handbook` \n `!elderscroll`', inline: true},

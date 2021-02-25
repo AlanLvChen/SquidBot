@@ -1,13 +1,23 @@
 
 const unknownCommand = require("./commands/unknowncommand.js");
+const musicCommands = require("./commands/musicCommands.js");
+const generalCommands = require("./commands/generalCommands.js");
 const purge = require("./commands/moderator/purge.js");
 
 
 const Discord = require('discord.js');
 
+
+
 //general commands
 const commands = {
     unknownCommand,
+    play: musicCommands,
+    stop: musicCommands,
+    skip: musicCommands,
+    pause: musicCommands,
+    queue: musicCommands,
+
 }
 
 //commands for mods
@@ -30,12 +40,11 @@ module.exports = async function (msg) {
         //if message starts with ! and after that isnt !!
         if (command.charAt(0) == "!" && !(command.length == 1 || command.charAt(1).match(uglyRegex))) {
             command = command.substring(1);
-            console.log(command);
 
             //if general command
             if (command in commands) {
                 console.log("General command was called");
-                commands[command](msg, tokens);
+                commands[command](msg, tokens, command, Discord);
             
             //if mod command 
             } else if (command in modCommands && (msg.member.roles.cache.has(admin) || msg.member.roles.cache.has(mod))) {
