@@ -2,12 +2,10 @@
 const unknownCommand = require("./commands/unknowncommand.js");
 const musicCommands = require("./commands/musicCommands.js");
 const generalCommands = require("./commands/generalCommands.js");
-const purge = require("./commands/moderator/purge.js");
+const moderatorCommands = require("./commands/moderator/modCommands.js");
 
 
 const Discord = require('discord.js');
-
-
 
 //general commands
 const commands = {
@@ -17,12 +15,15 @@ const commands = {
     skip: musicCommands,
     pause: musicCommands,
     queue: musicCommands,
-
+    urban: generalCommands,
+    flipcoin: generalCommands,
+    
 }
 
 //commands for mods
 const modCommands = {
-    purge,
+    purge: moderatorCommands,
+    roles: moderatorCommands,
 }
 
 //Used for testing command
@@ -31,9 +32,8 @@ admin = '806731817474326578'
 mod = '806731247820079114'
 
 module.exports = async function (msg) {
-    console.log(msg.content);
     //Currently only works in bot-testing channel
-    if (msg.channel.id == "812777913791414282") {
+    //if (msg.channel.id == "812777913791414282") {
         let tokens = msg.content.split(" ");
         let command = tokens.shift();
 
@@ -49,14 +49,16 @@ module.exports = async function (msg) {
             //if mod command 
             } else if (command in modCommands && (msg.member.roles.cache.has(admin) || msg.member.roles.cache.has(mod))) {
                 console.log("Mod command was called");
-                modCommands[command](msg, tokens);
+                modCommands[command](msg, tokens, command, Discord);
             
             //else not a command
             } else {
-                commands["unknownCommand"](msg, tokens, Discord);
+                commands["unknownCommand"](msg, Discord);
+                console.log(command);
             }
             
         }
         
-    }
+    //}
 }
+
