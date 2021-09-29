@@ -1,1 +1,3 @@
 # SquidBot
+
+Discord bot 
